@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Style Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header .subtitle { font-size: 1.2rem; opacity: 0.9; }
+        .controls {
+            padding: 1.5rem 2rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary { background: #6c757d; color: white; }
+        .btn-secondary:hover { background: #5a6268; }
+        .content { padding: 2rem; }
+        .section {
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        .section-header:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #653a8a 100%);
+        }
+        .section-header h2 { font-size: 1.3rem; }
+        .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .section-header.collapsed .toggle-icon { transform: rotate(-90deg); }
+        .section-content {
+            padding: 1.5rem;
+            background: white;
+        }
+        .section-content.hidden { display: none; }
+        .field {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+        .field-value { color: #212529; font-size: 1rem; }
+        .field-source {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 0.25rem;
+            font-style: italic;
+        }
+        .array-item {
+            padding: 0.5rem;
+            background: white;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .nested-object {
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="pageTitle">Language Style Guide</h1>
+            <div class="subtitle" id="pageSubtitle">Loading...</div>
+        </div>
+        <div class="controls">
+            <button class="btn btn-primary" onclick="downloadJSON()">📥 Download JSON</button>
+            <button class="btn btn-primary" onclick="downloadDOCX()">📄 Download DOCX</button>
+            <button class="btn btn-primary" onclick="copyToClipboard()">📋 Copy JSON</button>
+            <button class="btn btn-secondary" onclick="expandAll()">📂 Expand All</button>
+            <button class="btn btn-secondary" onclick="collapseAll()">📁 Collapse All</button>
+        </div>
+        <div class="content" id="lsgContent">Loading Language Style Guide...</div>
+    </div>
+    <script>
+        // REPLACE THESE WITH MAKE.COM VARIABLES USING THE VARIABLE PICKER!
+        const LSG_DATA = {"header":{"language English Name":{"prompt":"What is the English name of the language being described in this style guide? (e.g., Spanish, Mandarin Chinese)","value":"Karen, S'Gaw","ForTable":"language English Name","source":"Semaphore MDM"},"endonym":{"prompt":"What is the native/endonym name of this language if provided? (e.g., Español for Spanish)","value":"ကညီကျိာ်","ForTable":"endonym","source":"https://en.wikipedia.org/wiki/S%27gaw_Karen_language"}},"basic Language Information":{"writing System":{"prompt":"What writing system(s) are used for this language? (e.g., Latin alphabet, Cyrillic script, Chinese characters)","value":"S'gaw Karen alphabet","ForTable":"writing System","source":"https://en.wikipedia.org/wiki/S%27gaw_Karen_alphabet"},"script":{"prompt":"What scripts are used in this language? (e.g., Arabic, Devanagari, Latin)","value":"Burmese script","ForTable":"script","source":"https://omniglot.com/writing/sgawkaren.htm"},"languageCodes":{"BCP-47":{"prompt":"What is the BCP-47 language code? (e.g., en-US, zh-CN, ar-EG)","value":"ksw","ForTable":"BCP-47","source":"https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"},"ISO 639-3":{"prompt":"What is the ISO 639-3 code? (e.g., eng, cmn, ara)","value":"ksw","ForTable":"ISO 639-3","source":"https://iso639-3.sil.org/code/ksw"},"IANA":{"prompt":"Is there an IANA language code (e.g., en, zh, ar)","value":"ksw","ForTable":"IANA","source":"https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"}}},"Orientation":{"print Orientation":{"prompt":"What is the print orientation specified? (e.g., left to right, right to left, top to bottom)","value":"left to right","ForTable":"print Orientation","source":"https://omniglot.com/writing/sgawkaren.htm"},"music Orientation":{"prompt":"What is the music orientation specified? (e.g., left to right, right to left)","value":"left to right","ForTable":"music Orientation","source":"extensive web research yielded no results"},"column Orientation":{"prompt":"How are columns oriented in this language? (e.g., left to right and top to bottom, right to left and top to bottom)","value":"left to right and top to bottom","ForTable":"column Orientation","source":"https://www.w3.org/International/articles/typography/linebreak.en"},"special Font Consideration":{"prompt":"Are there any special font considerations mentioned? (e.g., Ruby text, vertical text support, ligatures)","value":"The script requires complex text rendering for vowels and tone markings, which appear as diacritics around base consonants. Fonts like Padauk and Noto Sans Myanmar are recommended.","ForTable":"special Font Consideration","source":"https://software.sil.org/padauk/"}},"layoutStandards":{"numbering":{"primaryNumericalSystemCharacters":{"prompt":"List the characters used in the primary numerical system. (e.g., 0 1 2 3 4 5 6 7 8 9, or 〇 一 二 三 四 五 六 七 八 九)","value":"0 1 2 3 4 5 6 7 8 9","ForTable":"primaryNumericalSystemCharacters","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"primaryNumericalSystemUnicodeRange":{"prompt":"Provide the Unicode range for the primary numerical system. (e.g., U+0030 to U+0039)","value":"U+0030 to U+0039","ForTable":"primaryNumericalSystemUnicodeRange","source":"https://www.unicode.org/charts/PDF/U0000.pdf"},"alphabeticalNumberingSystemCharacters":{"prompt":"List the characters used in the alphabetical numbering system. (e.g., A B C D E F G H I J K L M N O P Q R S T U V W X Y Z)","value":"က ခ ဂ ဃ င စ ဆ ၡ ည တ ထ ဒ န ပ ဖ ဘ မ ယ ရ လ ဝ သ ဟ အ ဧ","ForTable":"alphabeticalNumberingSystemCharacters","source":"https://omniglot.com/writing/sgawkaren.htm"},"alphabeticalNumberingSystemUnicodeRange":{"prompt":"Provide the Unicode range for the alphabetical numbering system. (e.g., U+0041 to U+005A)","value":"U+1000 to U+102B","ForTable":"alphabeticalNumberingSystemUnicodeRange","source":"https://www.unicode.org/charts/PDF/U1000.pdf"},"listFormatting":{"prompt":"Describe how lists are formatted, including any specific characters or symbols used. (e.g., Lists use Arabic numerals followed by a period and a space, like this: 1. item)","value":"Lists typically use Arabic numerals followed by a period and a space. Example: ၁. รายการ","ForTable":"listFormatting","source":"extensive web research yielded no results"},"numberedListExamples":{"prompt":"Provide examples of numbered lists, demonstrating different formats and numbering systems. (e.g.,\n(1) item one\n(2) item two\na. item one\nb. item one\nI. item one\nII. item two)","value":"1. အခၵျ\n2. အခၵျ\nက. အခၵျ\nခ. အခၵျ","ForTable":"numberedListExamples","source":"extensive web research yielded no results"},"Alphabetization":{"sortOrder":{"prompt":"List the characters in their sorting order, with a space between each character. (e.g., \"A B C D... Z\")","value":"က ခ ဂ ဃ င စ ဆ ၡ ည တ ထ ဒ န ပ ဖ ဘ မ ယ ရ လ ဝ သ ဟ အ ဧ","ForTable":"sortOrder","source":"https://omniglot.com/writing/sgawkaren.htm"},"sortOrderUnicodeRange":{"prompt":"Provide the Unicode range for the characters in the sorting order, encompassing all code points in the sequence. (e.g., \"U+0041-U+005A\")","value":"U+1000-U+102B","ForTable":"sortOrderUnicodeRange","source":"https://www.unicode.org/charts/PDF/U1000.pdf"},"numberSortOrder":{"prompt":"List the numbers in their sorting order, with a space between each number. (e.g., \"0 1 2 3 4 5 6 7 8 9\")","value":"0 1 2 3 4 5 6 7 8 9","ForTable":"numberSortOrder","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"numberSortOrderUnicodeRange":{"prompt":"Provide the Unicode range for the numbers in the sorting order, encompassing all code points in the sequence. (e.g., \"U+0030-U+0039\")","value":"U+0030-U+0039","ForTable":"numberSortOrderUnicodeRange","source":"https://www.unicode.org/charts/PDF/U0000.pdf"}}}},"dateFormatting":{"abbreviations In Format Codes":{"prompt":"What are the abbreviations used in format codes for dates? Please explain what each represents. (e.g., dd for two-digit day, MM for two-digit month, yyyy for four-digit year)","value":"d = day of month (1-31), M = month of year (1-12), y = year","ForTable":"abbreviations In Format Codes","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"default Short Date Format":{"prompt":"What is the default short date format? Include format and example. (e.g., MM/dd/yyyy showing as 12/25/2024)","value":"d/M/y showing as 25/12/2024","ForTable":"default Short Date Format","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"default Long Date Format":{"prompt":"What is the default long date format? Include format and example. (e.g., MMMM dd, yyyy showing as December 25, 2024)","value":"y MMMM d showing as 2024 ဒံၣ်စ့ဘၢၣ် 25","ForTable":"default Long Date Format","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"additional Short Date Format1":{"prompt":"Are there any additional short date formats mentioned? (e.g., dd-MM-yy, yyyy.MM.dd)","value":"no info found","ForTable":"additional Short Date Format1","source":"extensive web research yielded no results"},"additional Short Date Format2":{"prompt":"Are there any additional short date formats mentioned? (e.g., dd-MM-yy, yyyy.MM.dd)","value":"no info found","ForTable":"additional Short Date Format2","source":"extensive web research yielded no results"},"first Day Of Week":{"prompt":"What is specified as the first day of the week? Include native and English names if provided. (e.g., Monday/Lunes)","value":"Sunday (တနံၤနွေ)","ForTable":"first Day Of Week","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"defined Calendar":{"prompt":"What calendar systems are defined as being in use? (e.g., Gregorian, Islamic, Buddhist)","value":"Gregorian","ForTable":"defined Calendar","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"days":{"prompt":"Provide a list of all days of the week, with each day on a new line. Include the full name of the day, followed by any alternative forms or abbreviations in parentheses. (e.g., \nMonday (Mon),\nTuesday (Tue),\nWednesday (Wed))","value":"တနံၤနွေ (နွေ)\nတနံၤလါ (လါ)\nအဂၤ (အဂၤ)\nဗုဒ္ဓဟူး (ဟူး)\nพฤหัสบดี (หัส)\nသုကြၢ် (ကြၢ်)\nशनि (शनि)","ForTable":"days","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"months":{"prompt":"Provide a list of all months of the year, with each month on a new line. Include the full name of the month, followed by any alternative forms or abbreviations in parentheses. (e.g., \nJanuary (Jan),\nFebruary (Feb),\nMarch (Mar))","value":"ယနူၤအါရံၣ် (1)\nဖ့ၣ်ြဘူၤအါရံၣ် (2)\nမး (3)\nအ့ြပ့ၣ် (4)\nမ့ (5)\nစှီၤ (6)\nစူၤလါ (7)\nအီကူး (8)\nစဲးပတ့ဘၢၣ် (9)\nအီးတူၢ်บၢၣ် (10)\nနိၣ်ဝ့ဘၢၣ် (11)\nဒံၣ်စ့ဘၢၣ် (12)","ForTable":"months","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"}},"timeFormatting":{"24 Hour Format":{"prompt":"Is 24-hour format used, and in what contexts? (e.g., military only, standard usage)","value":true,"ForTable":"24 Hour Format","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"standard Time Format":{"prompt":"What is the standard time format? (e.g., HH:mm:ss, h:mm a)","value":"h:mm a","ForTable":"standard Time Format","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"standard Time Format Example":{"prompt":"What example is given of the standard time format? (e.g., 14:30:00 or 2:30 PM)","value":"2:30 PM","ForTable":"standard Time Format Example","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"time Separator":{"prompt":"What character is used as the time separator? Include Unicode if specified. (e.g., colon [:], dot [.])","value":": (colon)","ForTable":"time Separator","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"time Separator Examples":{"prompt":"What examples show time separation? (e.g., 12:30, 12.30)","value":"14:30","ForTable":"time Separator Examples","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"hours Leading Zero Example":{"prompt":"What example shows hours with leading zeros? (e.g., 08:30 vs 8:30)","value":"08:30","ForTable":"hours Leading Zero Example","source":"extensive web research yielded no results"},"String for AM designator ":{"prompt":"What is the string used for AM designation? Include native text. (e.g., AM, a.m., 上午)","value":"AM","ForTable":"String for AM designator ","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"String for PM designator ":{"prompt":"What is the string used for PM designation? Include native text. (e.g., PM, p.m., 下午)","value":"PM","ForTable":"String for PM designator ","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"}},"measurements":{"measurement System":{"prompt":"What measurement system does the language use? (e.g., Metric, Imperial)","value":"Metric","ForTable":"measurement System","source":"https://en.wikipedia.org/wiki/Measurement_in_Myanmar"},"temperature":{"prompt":"What units are used for temperature? (e.g., Celsius, Fahrenheit)","value":"Celsius","ForTable":"temperature","source":"https://www.climatestotravel.com/climate/myanmar"},"angles":{"prompt":"What units are used to measure angles? (e.g., degrees, radians)","value":"degrees","ForTable":"angles","source":"extensive web research yielded no results"},"unicodecharacter For Angles":{"prompt":"What is the Unicode character for angles, including its code point? (e.g., U+00B0 for the degree symbol)","value":"° (U+00B0)","ForTable":"unicodecharacter ForA ngles","source":"https://www.compart.com/en/unicode/U+00B0"},"percentages":{"prompt":"How are percentages represented? (e.g., using the % symbol, native characters)","value":"using the % symbol","ForTable":"percentages","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"unicodecharacters For Percentage":{"prompt":"What Unicode characters are used for percentages, including their code points? (e.g., U+0025 for the percent sign)","value":"% (U+0025)","ForTable":"unicodecharacters For Percentage","source":"https://www.compart.com/en/unicode/U+0025"}},"currency":{"currency Name":{"prompt":"What is the name of the currency used? (e.g., US Dollar, Euro)","value":"Myanmar Kyat, Thai Baht","ForTable":"currency Name","source":"https://en.wikipedia.org/wiki/S%27gaw_Karen_language"},"currency Symbol":{"prompt":"What is the symbol for the currency, including its Unicode code point if applicable? (e.g., $, €, ¥)","value":"K, ฿","ForTable":"currency Symbol","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"currency Symbol Position":{"prompt":"Where is the currency symbol positioned relative to the amount? (e.g., before the amount, after the amount)","value":"Before the amount","ForTable":"currency Symbol Position","source":"https://www.unicode.org/cldr/charts/44/summary/th.html"},"positive Currency Format":{"prompt":"What is the format for positive currency values? Provide an example that shows the placement of the currency symbol relative to the numerical value. (e.g., $100.00, 100.00€,  £100.00)","value":"¤#,##0.00","ForTable":"positive Currency Format","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"negative Sign Symbol":{"prompt":"What symbol is used to indicate negative currency values, including its Unicode code point? (e.g., -, minus sign)","value":"- (U+002D)","ForTable":"negative Sign Symbol","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"negative Currency Format":{"prompt":"What is the format for negative currency values? Provide an example that shows the placement of the negative sign and currency symbol. (e.g., -$100.00, -100.00€,  £-100.00)","value":"-¤#,##0.00","ForTable":"negative Currency Format","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"decimal Symbol":{"prompt":"What symbol is used as the decimal separator, including its Unicode code point? (e.g., dot [.], comma [,])","value":". (U+002E)","ForTable":"decimal Symbol","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"digits After Decimal":{"prompt":"How many digits are typically displayed after the decimal separator? (e.g., 2 for most currencies)","value":2,"ForTable":"digits After Decimal","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"digit Grouping Symbol":{"prompt":"What symbol is used for digit grouping, including its Unicode code point? (e.g., comma [,], dot [.], space)","value":", (U+002C)","ForTable":"digit Grouping Symbol","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"digits In Grouping":{"prompt":"How many digits are there in each group when grouping digits? (e.g., 3 for thousands, 2 for some currencies)","value":3,"ForTable":"digits In Grouping","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"positive Currency Example":{"prompt":"Provide an example of a positive currency value, including any formatting. (e.g., $1,000.00, €1.000,00)","value":"K1,234.56; ฿1,234.56","ForTable":"positive Currency Example","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"negative Currency Example":{"prompt":"Provide an example of a negative currency value, including any formatting. (e.g., -$1,000.00, -€1.000,00)","value":"-K1,234.56; -฿1,234.56","ForTable":"negative Currency Example","source":"https://www.unicode.org/cldr/charts/44/summary/ksw.html"},"iso Currency Code":{"prompt":"What is the ISO 4217 currency code? (e.g., USD, EUR, JPY)","value":"MMK, THB","ForTable":"iso Currency Code","source":"https://www.iso.org/iso-4217-currency-codes.html"},"currency Sub unit Name":{"prompt":"What is the name of the currency subunit, if applicable? (e.g., cent, pence, sen)","value":"Pya, Satang","ForTable":"currency Sub unit Name","source":"https://en.wikipedia.org/wiki/Burmese_kyat, https://en.wikipedia.org/wiki/Thai_baht"},"currency Sub unit Symbol":{"prompt":"What is the symbol for the currency subunit, if applicable? (e.g., ¢, p)","value":"no info found","ForTable":"currency Sub unit Symbol","source":"extensive web research yielded no results"},"currency Sub unit Example":{"prompt":"Provide an example of a currency value with a subunit, if applicable. (e.g., $1.99, £2.50)","value":"K1.50, ฿1.50","ForTable":"currency Sub unit Example","source":"extensive web research yielded no results"}},"textHyphenation":{"is Hyphenation Used":{"prompt":"Is hyphenation used in this language? (e.g., yes, no)","value":false,"ForTable":"is Hyphenation Used","source":"https://www.w3.org/TR/css-text-3/#line-breaking"},"marks Displayed":{"prompt":"What marks are displayed for hyphenation, including Unicode code points if applicable? (e.g., -, U+2010 for hyphen, U+00AD for soft hyphen)","value":"Not applicable","ForTable":"marks Displayed","source":"https://www.w3.org/TR/css-text-3/#line-breaking"}},"fontsAndCharacterUsage":{"input Font":{"prompt":"What is the recommended input font for this language? (e.g., Times New Roman, Arial Unicode MS)","value":"Padauk, Noto Sans Myanmar","ForTable":"input Font","source":"https://software.sil.org/padauk/, https://fonts.google.com/noto/specimen/Noto+Sans+Myanmar"},"lower Case Characters":{"prompt":"Does this language use lower-case characters? (e.g., yes, no)","value":"no","ForTable":"lower Case Characters","source":"https://omniglot.com/writing/sgawkaren.htm"},"upper Case Characters":{"prompt":"Does this language use upper-case characters? (e.g., yes, no)","value":"no","ForTable":"upper Case Characters","source":"https://omniglot.com/writing/sgawkaren.htm"}},"ChurchInfo":{"scriptures":{"scripture Ref Format":{"prompt":"What is the format for scripture references? Include an example with book name, chapter, and verse. (e.g., John 3:16, 1 Corinthians 13:1-13)","value":"Book Chapter:Verse (e.g., ယိၤဟၣ် ၃:၁၆)","ForTable":"scripture Ref Format","source":"https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/1?lang=ksw"}},"vio Style Guide Fonts":{"prompt":"What fonts are recommended for VIO style guides in this language? (e.g., Times New Roman, Arial Unicode MS)","value":"no info found","ForTable":"vio Style Guide Fonts","source":"extensive web research yielded no results"},"music Vio Style GuideFonts":{"prompt":"What fonts are recommended for music VIO style guides in this language? (e.g., Times New Roman, Arial Unicode MS)","value":"no info found","ForTable":"music Vio Style GuideFonts","source":"extensive web research yielded no results"}},"appendix":{"Valid Unicode Range":{"prompt":"List all valid Unicode characters for this language, each with its corresponding code point. Please format your response as a comma-separated list with each entry on a new line. For each character, include the character itself followed by its Unicode code point in parentheses. (e.g.,\nA (U+0041),\nB (U+0042),\nC (U+0043))","value":"က (U+1000), ခ (U+1001), ဂ (U+1002), ဃ (U+1003), င (U+1004), စ (U+1005), ဆ (U+1006), ဇ (U+1007), ဈ (U+1008), ည (U+100A), ဋ (U+100B), ဌ (U+100C), ဍ (U+100D), ဎ (U+100E), ဏ (U+100F), တ (U+1010), ထ (U+1011), ဒ (U+1012), ဓ (U+1013), န (U+1014), ပ (U+1015), ဖ (U+1016), ဘ (U+1017), မ (U+1019), ယ (U+101A), ရ (U+101B), လ (U+101C), ဝ (U+101D), သ (U+101E), ဟ (U+101F), အ (U+1021), ါ (U+102B), ိ (U+102D), ီ (U+102E), ု (U+102F), ူ (U+1030), ေ (U+1031), ဲ (U+1032), ံ (U+1036), ့ (U+1037), း (U+1038), ာ (U+102C), ် (U+103A), ျ (U+103B), ြ (U+103C), ွ (U+103D), ှ (U+103E), ၀ (U+1040), ၁ (U+1041), ၂ (U+1042), ၃ (U+1043), ၄ (U+1044), ၅ (U+1045), ၆ (U+1046), ၇ (U+1047), ၈ (U+1048), ၉ (U+1049), ၊ (U+104A), ။ (U+104B), ၡ (U+1061), ဧ (U+1027)","ForTable":"Valid Unicode Range","source":"https://www.unicode.org/charts/PDF/U1000.pdf, https://en.wikipedia.org/wiki/S%27gaw_Karen_alphabet"}}};
+        const DOCX_URL = "https://drive.google.com/file/d/1oJ2ye5CKYnUu_wwSVJAfnZAdaBE5e-y-/view?usp=drivesdk";
+
+        function renderValue(value) {
+            if (value === null || value === undefined) return '<span style="color: #6c757d;">Not specified</span>';
+            if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+            if (typeof value === 'object' && value.value !== undefined) {
+                let html = `<div class="field-value">${renderValue(value.value)}</div>`;
+                if (value.source) html += `<div class="field-source">Source: ${value.source}</div>`;
+                return html;
+            }
+            if (Array.isArray(value)) {
+                return value.map((item, index) => `<div class="array-item">${renderValue(item)}</div>`).join('');
+            }
+            if (typeof value === 'object') return `<div class="nested-object">${renderObject(value)}</div>`;
+            return String(value);
+        }
+
+        function renderObject(obj) {
+            return Object.entries(obj).map(([key, value]) => `
+                <div class="field">
+                    <div class="field-label">${formatLabel(key)}</div>
+                    ${renderValue(value)}
+                </div>
+            `).join('');
+        }
+
+        function formatLabel(str) {
+            return str.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/^./, s => s.toUpperCase()).trim();
+        }
+
+        function createSection(title, content) {
+            const section = document.createElement('div');
+            section.className = 'section';
+            const header = document.createElement('div');
+            header.className = 'section-header';
+            header.innerHTML = `<h2>${formatLabel(title)}</h2><span class="toggle-icon">▼</span>`;
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'section-content';
+            contentDiv.innerHTML = renderValue(content);
+            header.onclick = () => {
+                header.classList.toggle('collapsed');
+                contentDiv.classList.toggle('hidden');
+            };
+            section.appendChild(header);
+            section.appendChild(contentDiv);
+            return section;
+        }
+
+        function renderLSG(data) {
+            const container = document.getElementById('lsgContent');
+            container.innerHTML = '';
+            if (data.header && data.header['language English Name']) {
+                const langName = data.header['language English Name'].value || data.header['language English Name'];
+                document.getElementById('pageTitle').textContent = langName + ' - Language Style Guide';
+                if (data.header['language Endonym']) {
+                    const endonym = data.header['language Endonym'].value || data.header['language Endonym'];
+                    document.getElementById('pageSubtitle').textContent = endonym;
+                }
+            }
+            Object.keys(data).forEach(sectionKey => {
+                container.appendChild(createSection(sectionKey, data[sectionKey]));
+            });
+        }
+
+        function downloadJSON() {
+            const dataStr = JSON.stringify(LSG_DATA, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'language-style-guide.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadDOCX() {
+            if (DOCX_URL && DOCX_URL !== "") {
+                window.open(DOCX_URL, '_blank');
+            } else {
+                alert('DOCX file not available');
+            }
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(JSON.stringify(LSG_DATA, null, 2)).then(() => alert('JSON copied to clipboard!'));
+        }
+
+        function expandAll() {
+            document.querySelectorAll('.section-header').forEach(header => {
+                header.classList.remove('collapsed');
+                header.nextElementSibling.classList.remove('hidden');
+            });
+        }
+
+        function collapseAll() {
+            document.querySelectorAll('.section-header').forEach(header => {
+                header.classList.add('collapsed');
+                header.nextElementSibling.classList.add('hidden');
+            });
+        }
+
+        renderLSG(LSG_DATA);
+    </script>
+</body>
+</html>
